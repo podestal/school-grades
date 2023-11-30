@@ -20,7 +20,7 @@ class Assignment(models.Model):
     presented = models.BooleanField()
     grade = models.DecimalField(decimal_places=1, max_digits=3)
     due_date = models.DateTimeField()
-    assigment = models.CharField(max_length=1, choices=ASSIGNMENT_CHOICES)
+    assigment_type = models.CharField(max_length=1, choices=ASSIGNMENT_CHOICES)
 
 class Assignature(models.Model):
     title = models.CharField(max_length=255)

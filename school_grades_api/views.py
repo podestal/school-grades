@@ -1,3 +1,10 @@
 from django.shortcuts import render
+from rest_framework.viewsets import ModelViewSet
+from .models import Assignment
+from .serializers import AssignmentSerializer
 
-# Create your views here.
+class AssignmentViewSet(ModelViewSet):
+    queryset = Assignment.objects.all()
+    serializer_class = AssignmentSerializer
+
+    
