@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
 from .models import Assignment, Assignature, Professor, Promotion, Student
-from .serializers import AssignmentSerializer, AssignatureSerializer, ProfessorSerializer, PromotionSerializer, StudentSerializer
+from .serializers import AssignmentSerializer, AssignatureSerializer, ProfessorSerializer, PromotionSerializer, CreatePromotionSerializer, StudentSerializer
 
 class AssignmentViewSet(ModelViewSet):
     queryset = Assignment.objects.all()
@@ -17,7 +17,11 @@ class ProfessorViewSet(ModelViewSet):
 
 class PromotionViewSet(ModelViewSet):
     queryset = Promotion.objects.all()
-    serializer_class = PromotionSerializer
+
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return CreatePromotionSerializer
+        return PromotionSerializer
 
 class StudentViewSet(ModelViewSet):
     queryset = Student.objects.all()

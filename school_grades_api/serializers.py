@@ -18,6 +18,10 @@ class AssignatureSerializer(serializers.ModelSerializer):
         model = Assignature
         fields = '__all__'
 
+    # def save(self, **kwargs):
+    #     promotion = self.validated_data['assignature'].promotion
+    #     return super().save(**kwargs)
+
 class ProfessorSerializer(serializers.ModelSerializer):
 
     assignatures = AssignatureSerializer(many=True)
@@ -39,6 +43,12 @@ class PromotionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Promotion
         fields = ['id', 'name', 'assignatures', 'students']
+
+class CreatePromotionSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Promotion
+        fields = ['name']
 
 class StudentSerializer(serializers.ModelSerializer):
 
