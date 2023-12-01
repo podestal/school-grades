@@ -5,7 +5,7 @@ class AssignmentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Assignment
-        fields = ['id', 'topic', 'description', 'due_date', 'assigment_type', 'assignature']
+        fields = ['id', 'topic', 'description', 'due_date', 'assigment_type', 'assignature', 'student']
 
 # class UpdateAssignmentSerializer(serializers.ModelSerializer):
 #     class Meta:
@@ -39,3 +39,9 @@ class PromotionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Promotion
         fields = ['id', 'name', 'assignatures', 'students']
+
+class StudentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Student
+        fields = '__all__'

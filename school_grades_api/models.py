@@ -18,6 +18,11 @@ class Assignature(models.Model):
 
     def __str__(self):
         return self.title
+    
+class Student(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    birth_date = models.DateField()
+    promotion = models.ForeignKey(Promotion, on_delete=models.PROTECT, null=True, related_name='students')
 
 class Assignment(models.Model):
 
@@ -40,14 +45,10 @@ class Assignment(models.Model):
     due_date = models.DateTimeField()
     assigment_type = models.CharField(max_length=1, choices=ASSIGNMENT_CHOICES)
     assignature = models.ForeignKey(Assignature, on_delete=models.CASCADE, null=True)
+    student = models.ForeignKey(Student, on_delete=models.SET_NULL, null=True, related_name='assignments')
 
     def __str__(self):
         return self.topic
-
-class Student(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    birth_date = models.DateField()
-    promotion = models.ForeignKey(Promotion, on_delete=models.PROTECT, null=True, related_name='students')
 
 class Tutor(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
