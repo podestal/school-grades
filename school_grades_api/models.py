@@ -1,5 +1,19 @@
 from django.db import models
 from django.conf import settings
+    
+class Promotion(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+    
+class Assignature(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    promotion = models.ForeignKey(Promotion, on_delete=models.PROTECT, related_name='assgnatures')
+
+    def __str__(self):
+        return self.title
 
 class Assignment(models.Model):
 
@@ -17,19 +31,15 @@ class Assignment(models.Model):
 
     topic = models.CharField(max_length=255)
     description = models.TextField()
-    presented = models.BooleanField()
-    grade = models.DecimalField(decimal_places=1, max_digits=3)
+    presented = models.BooleanField(null=True)
+    grade = models.DecimalField(decimal_places=1, max_digits=3, null=True)
     due_date = models.DateTimeField()
     assigment_type = models.CharField(max_length=1, choices=ASSIGNMENT_CHOICES)
+    assignature = models.ForeignKey(Assignature, on_delete=models.CASCADE, null=True)
+    # promotion = models.ForeignKey(Promotion, on_delete=models.PROTECT)
 
-class Assignature(models.Model):
-    title = models.CharField(max_length=255)
-    description = models.TextField()
-    assignment = models.ForeignKey(Assignment, on_delete=models.PROTECT)
-
-class Promotion(models.Model):
-    name = models.CharField(max_length=255)
-    assignature = models.ForeignKey(Assignature, on_delete=models.PROTECT)
+    def __str__(self):
+        return self.topic
 
 class Student(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
