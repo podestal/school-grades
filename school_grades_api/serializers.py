@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Assignment, Assignature, Professor, Promotion
+from .models import Assignment, Assignature, Professor, Promotion, Student
 
 class AssignmentSerializer(serializers.ModelSerializer):
 
@@ -20,13 +20,22 @@ class AssignatureSerializer(serializers.ModelSerializer):
 
 class ProfessorSerializer(serializers.ModelSerializer):
 
+    assignatures = AssignatureSerializer(many=True)
     class Meta:
         model = Professor
+        fields = ['id', 'assignatures']
+
+class StudentSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Student
         fields = '__all__'
 
 class PromotionSerializer(serializers.ModelSerializer):
 
-    assgnatures = AssignatureSerializer(many=True)
+    assignatures = AssignatureSerializer(many=True)
+    students = StudentSerializer(many=True)
+
     class Meta:
         model = Promotion
-        fields = ['id', 'name', 'assgnatures']
+        fields = ['id', 'name', 'assignatures', 'students']
