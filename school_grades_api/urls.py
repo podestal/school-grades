@@ -7,5 +7,6 @@ router = routers.DefaultRouter()
 router.register('assignments', views.AssignmentViewSet)
 router.register('assignatures', views.AssignatureViewSet)
 router.register('professors', views.ProfessorViewSet)
+router.register('prmotions', views.PromotionViewSet)
 
 urlpatterns = router.urls

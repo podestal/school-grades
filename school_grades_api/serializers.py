@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Assignment, Assignature, Professor
+from .models import Assignment, Assignature, Professor, Promotion
 
 class AssignmentSerializer(serializers.ModelSerializer):
 
@@ -23,3 +23,10 @@ class ProfessorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Professor
         fields = '__all__'
+
+class PromotionSerializer(serializers.ModelSerializer):
+
+    assgnatures = AssignatureSerializer(many=True)
+    class Meta:
+        model = Promotion
+        fields = ['id', 'name', 'assgnatures']
